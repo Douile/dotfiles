@@ -1,1 +1,22 @@
-/usr/lib/firefox/distribution/policies.json
+{
+	"policies": {
+		"DisableFirefoxAccounts": true,
+		"DisableFirefoxStudies": true,
+		"DisablePocket": true,
+		"DisableSystemAddonUpdate": true,
+		"DisableTelemetry": true,
+		"EnableTrackingProtection": {
+			"Value": true,
+			"Locked": true
+		},
+		"Extensions": {
+			"Install": [ "uBlock0@raymondhill.net" ]
+		},
+		"FlashPlugin": {
+			"Block": [ "*://*/*" ],
+			"Default": false,
+			"Locked": true
+		},
+		"NetworkPrediction": false
+	}
+}	
