@@ -77,10 +77,10 @@ keys = [
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
 
+    # Manage session
     Key([mod, "control"], "r", lazy.restart(), desc="Restart qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown qtile"),
-    # Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
-    Key([mod], "r", lazy.run_extension(extension.DmenuRun(dmenu_prompt="> ")), desc="Spawn a dmenu"),
+    Key([mod], "l", lazy.spawn("dm-tool lock"), desc="Lock"),
 
     # Media keys
     Key([], "XF86AudioRaiseVolume", lazy.spawn("pamixer -i 5")),
@@ -91,6 +91,9 @@ keys = [
     Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause")),
 
     # Program hotkeys
+    # Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+    Key([mod], "r", lazy.run_extension(extension.DmenuRun(dmenu_prompt="> ")), desc="Spawn a dmenu"),
+
     Key([mod], "F1", lazy.spawn([terminal,"-e","htop"]), desc="Open htop"),
     Key([mod], "F2", lazy.spawn("firefox"), desc="Open firefox"),
     Key([mod], "F3", lazy.spawn("atom"), desc="Open atom"),
