@@ -137,7 +137,7 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font='sans',
+    font='roboto-mono',
     fontsize=12,
     padding=3,
 )
