@@ -1,0 +1,1 @@
+from .hwmon import ThermalHwmon

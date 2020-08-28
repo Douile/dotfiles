@@ -1,0 +1,6 @@
+{
+  "files": [ "*.py" ],
+  "command": "qtile-cmd -o cmd -f restart",
+  "showOutput": false,
+  "showError": false
+}
