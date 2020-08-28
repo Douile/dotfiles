@@ -94,6 +94,7 @@ keys = [
     Key([mod], "F1", lazy.spawn([terminal,"-e","htop"]), desc="Open htop"),
     Key([mod], "F2", lazy.spawn("firefox"), desc="Open firefox"),
     Key([mod], "F3", lazy.spawn("atom"), desc="Open atom"),
+    Key([mod], "F4", lazy.spawn("pcmanfm"), desc="Open file manager"),
     Key([mod, "control"], "m", lazy.spawn("pavucontrol"), desc="Open volume mixer"),
 ]
 
