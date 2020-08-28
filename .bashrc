@@ -16,4 +16,4 @@ alias qtile_log="vim ~/.local/share/qtile/qtile.log"
 alias config="git --work-tree=$HOME --git-dir=$HOME/.dotfiles"
 
 # Load bash-scripts from https://github.com/Douile/bash-scripts
-source /home/user/Software/bash-scripts/source.sh
+source ~/Software/bash-scripts/source.sh
