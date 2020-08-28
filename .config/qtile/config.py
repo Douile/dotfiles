@@ -57,6 +57,14 @@ keys = [
     Key([mod, "shift"], "space", lazy.layout.rotate(),
         desc="Swap panes of split stack"),
 
+    # Toggle fullscreen
+    Key([mod, "control"], "f", lazy.window.toggle_fullscreen(),
+        desc="Toggle active window fullscreen"),
+
+    # Toggle float
+    Key([mod, "control"], "space", lazy.window.toggle_floating(),
+        desc="Toggle active window floating"),
+
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
@@ -163,9 +171,9 @@ screens = [
 mouse = [
     Drag([mod], "Button1", lazy.window.set_position_floating(),
          start=lazy.window.get_position()),
-    Drag([mod], "Button3", lazy.window.set_size_floating(),
+    Drag([mod], "Button2", lazy.window.set_size_floating(),
          start=lazy.window.get_size()),
-    Click([mod], "Button2", lazy.window.bring_to_front())
+    Click([mod], "Button3", lazy.window.bring_to_front()),
 ]
 
 dgroups_key_binder = None
