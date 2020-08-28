@@ -34,6 +34,8 @@ from libqtile.utils import guess_terminal
 import widget as custom_widget
 
 mod = "mod4"
+border_focus = "#505050"
+border_normal = "#2c2c2c"
 terminal = guess_terminal()
 
 keys = [
@@ -128,7 +130,7 @@ layouts = [
     # layout.MonadTall(),
     # layout.MonadWide(),
     # layout.RatioTile(),
-    layout.Tile(border_focus="#505050", border_normal="#2c2c2c"),
+    layout.Tile(border_focus=border_focus, border_normal=border_normal),
     # layout.TreeTab(),
     # layout.VerticalTile(),
     # layout.Zoomy(),
@@ -204,7 +206,7 @@ floating_layout = layout.Floating(float_rules=[
     {'wname': 'pinentry'},  # GPG key password entry
     {'wmclass': 'ssh-askpass'},  # ssh-askpass
     {'wmclass': 'pavucontrol'}, # pavucontrol
-])
+], border_focus=border_focus, border_normal=border_normal)
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 
