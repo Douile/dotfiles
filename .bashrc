@@ -6,12 +6,18 @@
 [[ $- != *i* ]] && return
 
 alias ls='ls --color=auto'
+
+# Save overwrite
 alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -i'
 
 PS1='[\u@\h \W]\$ '
 
 # View the qtile log with vim
-alias qtile_log="vim ~/.local/share/qtile/qtile.log"
+alias qtile-log="tail ~/.local/share/qtile/qtile.log"
+# Restart qtile
+alias qtile-restart="qtile-cmd -o cmd -f restart"
 # Use the git bare config
 alias config="git --work-tree=$HOME --git-dir=$HOME/.dotfiles"
 
