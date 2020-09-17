@@ -163,12 +163,13 @@ def generic_bar():
         widget.CheckUpdates(),
         widget.DF(visible_on_warn=False, format="Disk remaining: {f}{m}/{r:.0f}%"),
         # widget.Net(interface='enp5s0', format="{down} ↓↑ {up}"),
-        getattr(custom_widget,'CustomNet',widget.Net)(interface='enp5s0', format="{down} ↓↑ {up}"),
+        getattr(custom_widget,'CustomNet',widget.Net)(interface="enp5s0", format="{down} ↓↑ {up}"),
         widget.Memory(format="{MemUsed}Mb", foreground="00f0f0"),
-        widget.CPU(format="{freq_current}GHz {load_percent}%", foreground="f0f000"),
+        # widget.CPU(format="{freq_current}GHz {load_percent:02.01f}%", foreground="f0f000"),
+        getattr(custom_widget,'CPU',widget.CPU)(format="{freq_current:04.2f}GHz {load_percent:04.1f}%", foreground="f0f000"),
         # widget.ThermalSensor(tag_sensor=None, foreground="fc8f8f", foreground_alert="ff0000"),
         custom_widget.ThermalHwmon(foreground="fc8f8f", foreground_alert="ff0000"),
-        widget.PulseVolume(),
+        widget.PulseVolume(volume_app="pavucontrol"),
         # widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
         widget.Systray(),
         widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
@@ -232,6 +233,7 @@ wmname = "LG3D"
 def autostart():
   processes = [
     [ 'nitrogen', '--restore' ],
+    [ 'picom', '-b' ],
   ]
 
   for p in processes:

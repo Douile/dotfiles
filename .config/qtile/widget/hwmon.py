@@ -24,7 +24,7 @@ class ThermalHwmon(base.InLoopPollText):
         ('threshold', 70 , 'If temp is above change to foreground_alert'),
         ('foreground_alert', 'ff0000', 'Foreground colour alert'),
         ('hwmon_dir', '/sys/class/hwmon', 'Path for hwmon devices'),
-        ('format', '{temp}C', 'Formatting string'),
+        ('format', '{temp:02.2f}C', 'Formatting string'),
     ]
 
     def __init__(self, **config):
@@ -71,7 +71,7 @@ class ThermalHwmon(base.InLoopPollText):
         temp = self.get_temp(self.sensor)
         text = "N/A"
         if temp is not None:
-            text = self.format.format_map({ 'temp': round(temp, 2) })
+            text = self.format.format_map({ 'temp': temp })
 
             if temp > self.threshold:
                 self.layout.colour = self.foreground_alert

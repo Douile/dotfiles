@@ -64,10 +64,10 @@ class CustomNet(base.ThreadedPollText):
         factor = 1000.0
 
         if self.use_bits:
-            letters = ["b", "kb", "Mb", "Gb", "Tb", "Pb", "Eb", "Zb", "Yb"]
+            letters = [" b", "kb", "Mb", "Gb", "Tb", "Pb", "Eb", "Zb", "Yb"]
             num_bytes *= 8
         else:
-            letters = ["B", "kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"]
+            letters = [" B", "kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"]
 
         if num_bytes > 0:
             power = int(log(num_bytes) / log(factor))
@@ -95,8 +95,8 @@ class CustomNet(base.ThreadedPollText):
             return interfaces
 
     def _format(self, down, down_letter, up, up_letter):
-        max_len_down = 6 - len(down_letter)
-        max_len_up = 6 - len(up_letter)
+        max_len_down = 7 - len(down_letter)
+        max_len_up = 7 - len(up_letter)
         down = '{val:0{max_len}.1f}'.format(val=down, max_len=max_len_down)
         up = '{val:0{max_len}.1f}'.format(val=up, max_len=max_len_up)
         return down[:max_len_down], up[:max_len_up]

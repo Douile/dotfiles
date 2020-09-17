@@ -50,5 +50,6 @@ def safe_import(module_name, class_name):
         ("", module_name), class_name, globals(), fallback=make_error
     )
 
+safe_import("cpu", "CPU")
 safe_import("hwmon", "ThermalHwmon")
 safe_import("net", "CustomNet")
