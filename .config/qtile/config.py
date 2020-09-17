@@ -106,7 +106,13 @@ keys = [
     Key([mod, "control"], "m", lazy.spawn("pavucontrol"), desc="Open volume mixer"),
 
     # Shutdown
-    Key([mod], "0", lazy.run_extension(extension.Dmenu(dmenu_prompt="Power> ")), desc="Open dmenu shutdown prompt")
+    Key([mod], "0", lazy.run_extension(extension.CommandSet(dmenu_prompt="Power> " , commands={
+        "poweroff": "poweroff",
+        "reboot": "reboot",
+        "lock": "dm-tool lock",
+        "logout": "qtile-cmd -o cmd -f shutdown",
+        "reload": "qtile-cmd -o cmd -f restart"
+    })), desc="Open dmenu shutdown prompt")
 ]
 
 groups = [Group(i) for i in "asdfuiop"]
