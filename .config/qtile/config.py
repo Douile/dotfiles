@@ -26,12 +26,14 @@
 
 from typing import List  # noqa: F401
 
-from libqtile import bar, layout, widget, extension
+from libqtile import bar, layout, widget, extension, hook
 from libqtile.config import Click, Drag, Group, Key, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
 import widget as custom_widget
+
+import subprocess
 
 mod = "mod4"
 border_focus = "#505050"
@@ -101,6 +103,9 @@ keys = [
     Key([mod], "F3", lazy.spawn("atom"), desc="Open atom"),
     Key([mod], "F4", lazy.spawn("pcmanfm"), desc="Open file manager"),
     Key([mod, "control"], "m", lazy.spawn("pavucontrol"), desc="Open volume mixer"),
+
+    # Shutdown
+    Key([mod], "0", lazy.run_extension(extension.Dmenu(dmenu_prompt="Power> ")), desc="Open dmenu shutdown prompt")
 ]
 
 groups = [Group(i) for i in "asdfuiop"]
@@ -157,6 +162,8 @@ def generic_bar():
         ),
         widget.CheckUpdates(),
         widget.DF(visible_on_warn=False, format="Disk remaining: {f}{m}/{r:.0f}%"),
+        # widget.Net(interface='enp5s0', format="{down} ↓↑ {up}"),
+        getattr(custom_widget,'CustomNet',widget.Net)(interface='enp5s0', format="{down} ↓↑ {up}"),
         widget.Memory(format="{MemUsed}Mb", foreground="00f0f0"),
         widget.CPU(format="{freq_current}GHz {load_percent}%", foreground="f0f000"),
         # widget.ThermalSensor(tag_sensor=None, foreground="fc8f8f", foreground_alert="ff0000"),
@@ -178,9 +185,9 @@ screens = [
 mouse = [
     Drag([mod], "Button1", lazy.window.set_position_floating(),
          start=lazy.window.get_position()),
-    Drag([mod], "Button2", lazy.window.set_size_floating(),
+    Drag([mod], "Button3", lazy.window.set_size_floating(),
          start=lazy.window.get_size()),
-    Click([mod], "Button3", lazy.window.bring_to_front()),
+    Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
 
 dgroups_key_binder = None
@@ -219,3 +226,13 @@ focus_on_window_activation = "smart"
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
+
+# Auto start processes
+@hook.subscribe.startup_once
+def autostart():
+  processes = [
+    [ 'nitrogen', '--restore' ],
+  ]
+
+  for p in processes:
+    subprocess.Popen(p)
