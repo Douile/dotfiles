@@ -1,1 +1,0 @@
-Symbolises root directory
