@@ -112,7 +112,10 @@ keys = [
         "lock": "dm-tool lock",
         "logout": "qtile-cmd -o cmd -f shutdown",
         "reload": "qtile-cmd -o cmd -f restart"
-    })), desc="Open dmenu shutdown prompt")
+    })), desc="Open dmenu shutdown prompt"),
+
+    # Screenshot
+    Key([], "Print", lazy.spawn("peek"), desc="Take a screenshot"),
 ]
 
 groups = [Group(i) for i in "asdfuiop"]
@@ -155,8 +158,8 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
-def generic_bar():
-    return bar.Bar([
+def generic_bar(systray=False):
+    widgets = [
         widget.CurrentLayout(),
         widget.GroupBox(),
         # widget.Prompt(),
@@ -177,15 +180,15 @@ def generic_bar():
         # widget.ThermalSensor(tag_sensor=None, foreground="fc8f8f", foreground_alert="ff0000"),
         custom_widget.ThermalHwmon(foreground="fc8f8f", foreground_alert="ff0000"),
         widget.PulseVolume(volume_app="pavucontrol"),
-        # widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
-        widget.Systray(),
-        widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
-        ],
-        24,
-    )
+    ]
+    if systray:
+        widgets.append(widget.Systray())
+    widgets.append(widget.Clock(format='%Y-%m-%d %a %I:%M %p'))
+
+    return bar.Bar(widgets, 24, )
 
 screens = [
-    Screen(top=generic_bar()),
+    Screen(top=generic_bar(systray=True)),
     Screen(top=generic_bar())
 ]
 
