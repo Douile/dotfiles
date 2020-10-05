@@ -34,7 +34,11 @@ from libqtile.utils import guess_terminal
 
 import widget as custom_widget
 
+from Xlib import X, display
+from Xlib.ext import randr
+
 import subprocess
+import re
 
 mod = "mod4"
 border_focus = "#505050"
@@ -161,7 +165,7 @@ extension_defaults = widget_defaults.copy()
 def generic_bar(systray=False):
     widgets = [
         widget.CurrentLayout(),
-        widget.GroupBox(),
+        widget.GroupBox(disable_drag=True),
         # widget.Prompt(),
         widget.WindowName(),
         widget.Chord(
@@ -187,10 +191,25 @@ def generic_bar(systray=False):
 
     return bar.Bar(widgets, 24, )
 
-screens = [
-    Screen(top=generic_bar(systray=True)),
-    Screen(top=generic_bar())
-]
+def get_screen_count():
+    count = 0
+
+    d = display.Display()
+    s = d.screen()
+    window = s.root.create_window(0, 0, 1, 1, 1, s.root_depth)
+    res = randr.get_screen_resources(window)
+    for id in res.outputs:
+        output = randr.get_output_info(window, id, 0)
+        count += output.connection ^ 1 # connection = 0 means display active
+    window.destroy()
+    return count
+
+screens = [Screen(top=generic_bar(systray=i == 0)) for i in range(0, get_screen_count())]
+
+# screens = [
+#     Screen(top=generic_bar(systray=True)),
+# #    Screen(top=generic_bar()),
+# ]
 
 # Drag floating layouts.
 mouse = [
@@ -200,6 +219,14 @@ mouse = [
          start=lazy.window.get_size()),
     Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
+
+class RegexDropin:
+    def __init__(self, string):
+        self._regex = re.compile(string)
+    def __eq__(self, other):
+        if not isinstance(other, str):
+            return False
+        return self._regex.match(other) is not None
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
@@ -224,6 +251,11 @@ floating_layout = layout.Floating(float_rules=[
     {'wname': 'pinentry'},  # GPG key password entry
     {'wmclass': 'ssh-askpass'},  # ssh-askpass
     {'wmclass': 'pavucontrol'}, # pavucontrol
+    {'wname': 'Steam Login'}, # Steam login
+    {'wname': 'Steam - News'}, # Steam news
+    {'wmclass': 'Steam', 'wname': RegexDropin("^Install")}, # Steam install dialog
+    {'wmclass': 'Steam', 'wname': 'Settings'}, # Steam settings
+    {'wmclass': 'pinentry-gtk-2'}, # pinentry prompt
 ], border_focus=border_focus, border_normal=border_normal)
 auto_fullscreen = True
 focus_on_window_activation = "smart"
@@ -244,6 +276,7 @@ def autostart():
   processes = [
     [ 'nitrogen', '--restore' ],
     [ 'picom', '-b' ],
+    [ 'nm-applet' ],
   ]
 
   for p in processes:
