@@ -140,6 +140,7 @@ for i in groups:
     ])
 
 layouts = [
+    layout.Tile(border_focus=border_focus, border_normal=border_normal),
     layout.Max(),
     # layout.Stack(num_stacks=2),
     # Try more layouts by unleashing below layouts.
@@ -149,7 +150,6 @@ layouts = [
     # layout.MonadTall(),
     # layout.MonadWide(),
     # layout.RatioTile(),
-    layout.Tile(border_focus=border_focus, border_normal=border_normal),
     # layout.TreeTab(),
     # layout.VerticalTile(),
     # layout.Zoomy(),
