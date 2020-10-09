@@ -98,7 +98,13 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# dotfile tracking
 alias config="/usr/bin/git --git-dir=\"$HOME/.dotfiles\" --work-tree=\"$HOME\""
+
+# Confirm deletions
+alias rm="rm -i"
+alias cp="cp -i"
+alias mv="mv -i"
 
 # Ufetch
 ufetch-manjaro
