@@ -101,12 +101,13 @@ keys = [
 
     # Program hotkeys
     # Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
-    Key([mod], "r", lazy.run_extension(extension.DmenuRun(dmenu_prompt="> ")), desc="Spawn a dmenu"),
+    Key([mod], "r", lazy.spawn("rofi -show run"), desc="Spawn a rofi app menu"),
+    Key([mod, "shift"], "r", lazy.run_extension(extension.DmenuRun(dmenu_prompt="> ")), desc="Spawn a dmenu"),
 
     Key([mod], "F1", lazy.spawn([terminal,"-e","htop"]), desc="Open htop"),
     Key([mod], "F2", lazy.spawn("firefox"), desc="Open firefox"),
-    Key([mod], "F3", lazy.spawn("atom"), desc="Open atom"),
-    Key([mod], "F4", lazy.spawn("pcmanfm"), desc="Open file manager"),
+    Key([mod], "F4", lazy.spawn("atom"), desc="Open atom"),
+    Key([mod], "F3", lazy.spawn("pcmanfm"), desc="Open file manager"),
     Key([mod, "control"], "m", lazy.spawn("pavucontrol"), desc="Open volume mixer"),
 
     # Shutdown
@@ -119,7 +120,11 @@ keys = [
     })), desc="Open dmenu shutdown prompt"),
 
     # Screenshot
-    Key([], "Print", lazy.spawn("peek"), desc="Take a screenshot"),
+    Key([], "Print", lazy.spawn(["sh","-c","FILE=\"$PWD/sc-$(date +%Y-%m-%d-%H-%M-%S).png\";maim -s -u | tee \"$FILE\" | xclip -selection clipboard -t image/png && notify-send -i \"$FILE\" \"Screeshotted\" \"File saved as $FILE\""]), desc="Take a screenshot"),
+    Key(["shift"], "Print", lazy.spawn("peek"), desc="Take a animated screenshot"),
+
+    Key([mod], "y", lazy.spawn(["pamixer", "--source", "2", "--set-volume", "99999"])),
+    Key([mod, "shift"], "y", lazy.spawn(["pamixer", "--source", "2", "--set-volume", "40"])),
 ]
 
 groups = [Group(i) for i in "asdfuiop"]
@@ -142,17 +147,17 @@ for i in groups:
 layouts = [
     layout.Tile(border_focus=border_focus, border_normal=border_normal),
     layout.Max(),
-    # layout.Stack(num_stacks=2),
+    #layout.Stack(num_stacks=2),
     # Try more layouts by unleashing below layouts.
-    # layout.Bsp(),
-    # layout.Columns(),
-    # layout.Matrix(),
-    # layout.MonadTall(),
-    # layout.MonadWide(),
-    # layout.RatioTile(),
-    # layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
+    #layout.Bsp(),
+    #layout.Columns(),
+    #layout.Matrix(),
+    #layout.MonadTall(),
+    #layout.MonadWide(),
+    #layout.RatioTile(),
+    layout.TreeTab(),
+    #layout.VerticalTile(),
+    #layout.Zoomy(),
 ]
 
 widget_defaults = dict(
@@ -221,8 +226,8 @@ mouse = [
 ]
 
 class RegexDropin:
-    def __init__(self, string):
-        self._regex = re.compile(string)
+    def __init__(self, string, flags=0):
+        self._regex = re.compile(string, flags)
     def __eq__(self, other):
         if not isinstance(other, str):
             return False
@@ -251,11 +256,12 @@ floating_layout = layout.Floating(float_rules=[
     {'wname': 'pinentry'},  # GPG key password entry
     {'wmclass': 'ssh-askpass'},  # ssh-askpass
     {'wmclass': 'pavucontrol'}, # pavucontrol
-    {'wname': 'Steam Login'}, # Steam login
+    {'wmclass': 'Steam', 'wname': 'Steam Login'}, # Steam login
     {'wname': 'Steam - News'}, # Steam news
-    {'wmclass': 'Steam', 'wname': RegexDropin("^Install")}, # Steam install dialog
+    {'wmclass': 'Steam', 'wname': RegexDropin('^Install -')}, # Steam install dialog
     {'wmclass': 'Steam', 'wname': 'Settings'}, # Steam settings
     {'wmclass': 'pinentry-gtk-2'}, # pinentry prompt
+    {'wmclass': 'Browser', 'wname': RegexDropin('^About[^-]*$')}, # Browser about dialog
 ], border_focus=border_focus, border_normal=border_normal)
 auto_fullscreen = True
 focus_on_window_activation = "smart"

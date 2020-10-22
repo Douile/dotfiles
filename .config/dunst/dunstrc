@@ -1,0 +1,13 @@
+[global]
+geometry = 0x0-10+40
+shrink = true
+transparency = 15
+padding = 10
+horizontal_padding = 10
+# corner_radius = 5
+markup = full
+format = "[%a] <b>%s</b> %p\n%b"
+word_wrap = true
+icon_position = left
+frame_color = #000000
+max_icon_size = 50
