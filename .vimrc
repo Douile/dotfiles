@@ -13,6 +13,7 @@ autocmd FileType make setlocal noexpandtab
 autocmd BufWritePost ~/.i3/config silent exec "!(i3-msg restart) > /dev/null"
 autocmd BufWritePost ~/.config/i3status/config silent exec "!(i3-msg restart) > /dev/null"
 autocmd BufWritePost ~/.config/i3status/i3status.sh silent exec "!(i3-msg restart) > /dev/null"
+autocmd BufWritePost ~/.config/qtile/config.py silent exec "!(qtile-cmd -o cmd -f restart 2>/dev/null) > /dev/null"
 
 " Change window binds
 nnoremap <C-J> <C-W><C-J>
