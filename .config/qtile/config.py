@@ -120,11 +120,9 @@ keys = [
     })), desc="Open dmenu shutdown prompt"),
 
     # Screenshot
-    Key([], "Print", lazy.spawn(["sh","-c","FILE=\"$PWD/sc-$(date +%Y-%m-%d-%H-%M-%S).png\";maim -s -u | tee \"$FILE\" | xclip -selection clipboard -t image/png && notify-send -i \"$FILE\" \"Screeshotted\" \"File saved as $FILE\""]), desc="Take a screenshot"),
+    Key([], "Print", lazy.spawn(["sh", "-c", "\"$HOME/.scripts/screenshot.sh\""]),desc="Take a screenshot"),
+    # Key([], "Print", lazy.spawn(["sh","-c","FILE=\"$PWD/sc-$(date +%Y-%m-%d-%H-%M-%S).png\";maim -s -u | tee \"$FILE\" | xclip -selection clipboard -t image/png && notify-send -i \"$FILE\" \"Screeshotted\" \"File saved as $FILE\""]), desc="Take a screenshot"),
     Key(["shift"], "Print", lazy.spawn("peek"), desc="Take a animated screenshot"),
-
-    Key([mod], "y", lazy.spawn(["pamixer", "--source", "2", "--set-volume", "99999"])),
-    Key([mod, "shift"], "y", lazy.spawn(["pamixer", "--source", "2", "--set-volume", "40"])),
 ]
 
 groups = [Group(i) for i in "asdfuiop"]
