@@ -157,4 +157,11 @@ do
 done
 
 alias config="/usr/bin/git --git-dir=\"$HOME/.dotfiles\" --work-tree=\"$HOME\""
+alias terminalizer="~/Software/terminalizer/node_modules/terminalizer/bin/app.js"
 source ~/Code/github/bash-scripts/tscripts/source.sh
+
+croc-send() {
+  read -sp ">" tmp;
+  croc --ask send --text "$tmp";
+  tmp="";
+}
