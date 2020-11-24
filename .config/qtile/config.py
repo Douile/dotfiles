@@ -190,7 +190,7 @@ def generic_bar(systray=False):
     ]
     if systray:
         widgets.append(widget.Systray())
-    widgets.append(widget.Clock(format='%Y-%m-%d %a %I:%M %p'))
+    widgets.append(widget.Clock(format='%Y-%m-%d %a %H:%M'))
 
     return bar.Bar(widgets, 24, )
 
@@ -254,12 +254,13 @@ floating_layout = layout.Floating(float_rules=[
     {'wname': 'pinentry'},  # GPG key password entry
     {'wmclass': 'ssh-askpass'},  # ssh-askpass
     {'wmclass': 'pavucontrol'}, # pavucontrol
-    {'wmclass': 'Steam', 'wname': 'Steam Login'}, # Steam login
+    # {'wmclass': 'Steam', 'wname': 'Steam Login'}, # Steam login
     {'wname': 'Steam - News'}, # Steam news
     {'wmclass': 'Steam', 'wname': RegexDropin('^Install -')}, # Steam install dialog
     {'wmclass': 'Steam', 'wname': 'Settings'}, # Steam settings
     {'wmclass': 'pinentry-gtk-2'}, # pinentry prompt
     {'wmclass': 'Browser', 'wname': RegexDropin('^About[^-]*$')}, # Browser about dialog
+    {'wmclass': 'redshift-gtk'}, # Redshift info
 ], border_focus=border_focus, border_normal=border_normal)
 auto_fullscreen = True
 focus_on_window_activation = "smart"
@@ -278,9 +279,11 @@ wmname = "LG3D"
 @hook.subscribe.startup_once
 def autostart():
   processes = [
+    [ 'sh', '.xinitrc' ],
     [ 'nitrogen', '--restore' ],
     [ 'picom', '-b' ],
     [ 'nm-applet' ],
+    [ 'redshift-gtk' ],
   ]
 
   for p in processes:
