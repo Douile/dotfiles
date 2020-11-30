@@ -24,10 +24,11 @@ alias qtile-log="tail ~/.local/share/qtile/qtile.log"
 alias qtile-restart="qtile-cmd -o cmd -f restart"
 # Use the git bare config
 alias config="git --work-tree=$HOME --git-dir=$HOME/.dotfiles"
+alias configadd="config add -u"
 # Tell ssh we're xterm-color
 alias ssh="TERM=\"xterm-color\" ssh"
 
 alias cycle_vpn="nmcli connection down client-win10 && nmcli connection up client-win10"
 
 # Load bash-scripts from https://github.com/Douile/bash-scripts
-source ~/Software/bash-scripts/source.sh
+source /home/user/Software/bash-scripts/source.sh
