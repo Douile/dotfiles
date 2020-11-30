@@ -53,3 +53,4 @@ def safe_import(module_name, class_name):
 safe_import("cpu", "CPU")
 safe_import("hwmon", "ThermalHwmon")
 safe_import("net", "CustomNet")
+safe_import("powerline", "Powerline")

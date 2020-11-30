@@ -36,8 +36,6 @@ from libqtile.utils import guess_terminal
 
 import widget as custom_widget
 
-from powerline.bindings.qtile.widget import PowerlineTextBox
-
 from Xlib import X, display
 from Xlib.ext import randr
 
@@ -169,11 +167,14 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
-HIGHLIGHT = '1882b7' # '215578'
+BAR_COLOR_TIME = 'ff0000'
+BAR_COLOR_MUSIC = 'ea9010'
+BAR_COLOR_CPU = '1882b7'
+BAR_COLOR_NETWORK = '6ab547'
 
 def generic_bar(systray=False):
     widgets = [
-        widget.GroupBox(disable_drag=True, this_current_screen_border=HIGHLIGHT),
+        widget.GroupBox(disable_drag=True, this_current_screen_border=BAR_COLOR_CPU),
         widget.CurrentLayout(),
         # widget.Prompt(),
         widget.WindowName(show_state=True),
@@ -192,18 +193,21 @@ def generic_bar(systray=False):
         ])
 
     widgets.extend([
-        widget.CheckUpdates(),
+        custom_widget.Powerline(foreground=BAR_COLOR_NETWORK),
+        widget.CheckUpdates(background=BAR_COLOR_NETWORK),
         # widget.DF(visible_on_warn=False, format="Disk remaining: {f}{m}/{r:.0f}%"),
         # widget.Net(interface='enp5s0', format="{down} ↓↑ {up}"),
-        getattr(custom_widget,'CustomNet',widget.Net)(interface="enp5s0", format="{down} ↓↑ {up}", background=HIGHLIGHT),
-        widget.Memory(format="{MemUsed}Mb", foreground="ffffff", foreground_alert="fc8f8f", background=HIGHLIGHT),
+        getattr(custom_widget,'CustomNet',widget.Net)(interface="enp5s0", format="{down} ↓↑ {up}", background=BAR_COLOR_NETWORK),
+        custom_widget.Powerline(foreground=BAR_COLOR_CPU, background=BAR_COLOR_NETWORK),
+        widget.Memory(format="{MemUsed}Mb", foreground="ffffff", foreground_alert="fc8f8f", background=BAR_COLOR_CPU),
         # widget.CPU(format="{freq_current}GHz {load_percent:02.01f}%", foreground="f0f000"),
-        getattr(custom_widget,'CPU',widget.CPU)(format="{freq_current:04.2f}GHz {load_percent:04.1f}%", foreground="ffffff", foreground_warn="f0f000", foreground_alert="fc8f8f", background=HIGHLIGHT),
+        getattr(custom_widget,'CPU',widget.CPU)(format="{freq_current:04.2f}GHz {load_percent:04.1f}%", foreground="ffffff", foreground_warn="f0f000", foreground_alert="fc8f8f", background=BAR_COLOR_CPU),
         # widget.ThermalSensor(tag_sensor=None, foreground="fc8f8f", foreground_alert="ff0000"),
-        custom_widget.ThermalHwmon(foreground="ffffff", foreground_alert="fc8f8f", background=HIGHLIGHT),
-        widget.PulseVolume(volume_app="pavucontrol", background=HIGHLIGHT),
-        widget.Clock(format='%Y-%m-%d %a %H:%M', background=HIGHLIGHT),
-        # PowerlineTextBox(update_interval=2, side='right', text=bytes('','utf-8')),
+        custom_widget.ThermalHwmon(foreground="ffffff", foreground_alert="fc8f8f", background=BAR_COLOR_CPU),
+        custom_widget.Powerline(foreground=BAR_COLOR_MUSIC, background=BAR_COLOR_CPU),
+        widget.PulseVolume(volume_app="pavucontrol", background=BAR_COLOR_MUSIC),
+        custom_widget.Powerline(foreground=BAR_COLOR_TIME, background=BAR_COLOR_MUSIC),
+        widget.Clock(format='%Y-%m-%d %a %H:%M', background=BAR_COLOR_TIME),
     ])
     return bar.Bar(widgets, 24, )
 
