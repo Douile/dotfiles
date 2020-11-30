@@ -24,7 +24,8 @@ alias qtile-log="tail ~/.local/share/qtile/qtile.log"
 alias qtile-restart="qtile-cmd -o cmd -f restart"
 # Use the git bare config
 alias config="git --work-tree=$HOME --git-dir=$HOME/.dotfiles"
-alias configadd="config add -u"
+alias add="config add -u"
+alias commit="config commit"
 # Tell ssh we're xterm-color
 alias ssh="TERM=\"xterm-color\" ssh"
 
