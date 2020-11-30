@@ -10,5 +10,5 @@ if test 0 -eq $?; then
     fi
   }
 else
-  dunstify -a "maim" --hints="string:bgcolor:#ff4444" "Screenshot" "Error taking screenshot"
+  dunstify -a "maim" -u critical "Screenshot" "Error taking screenshot"
 fi

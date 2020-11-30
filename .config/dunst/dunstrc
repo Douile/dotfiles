@@ -11,3 +11,13 @@ word_wrap = true
 icon_position = left
 frame_color = #000000
 max_icon_size = 50
+
+[urgency_normal]
+  background = "#1882b7"
+  foreground = "#ffffff"
+  timeout = 15
+
+[urgency_critical]
+  background = "#b02222"
+  foreground = "#ffffff"
+  timeout = 30

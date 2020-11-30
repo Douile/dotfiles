@@ -25,6 +25,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+# -*- coding: utf-8 -*-
+
 from typing import List  # noqa: F401
 
 from libqtile import bar, layout, widget, extension, hook
@@ -33,6 +35,8 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
 import widget as custom_widget
+
+from powerline.bindings.qtile.widget import PowerlineTextBox
 
 from Xlib import X, display
 from Xlib.ext import randr
@@ -165,33 +169,42 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
+HIGHLIGHT = '1882b7' # '215578'
+
 def generic_bar(systray=False):
     widgets = [
+        widget.GroupBox(disable_drag=True, this_current_screen_border=HIGHLIGHT),
         widget.CurrentLayout(),
-        widget.GroupBox(disable_drag=True),
         # widget.Prompt(),
-        widget.WindowName(),
+        widget.WindowName(show_state=True),
         widget.Chord(
             chords_colors={
                 'launch': ("#ff0000", "#ffffff"),
             },
             name_transform=lambda name: name.upper(),
         ),
-        widget.CheckUpdates(),
-        widget.DF(visible_on_warn=False, format="Disk remaining: {f}{m}/{r:.0f}%"),
-        # widget.Net(interface='enp5s0', format="{down} ↓↑ {up}"),
-        getattr(custom_widget,'CustomNet',widget.Net)(interface="enp5s0", format="{down} ↓↑ {up}"),
-        widget.Memory(format="{MemUsed}Mb", foreground="00f0f0"),
-        # widget.CPU(format="{freq_current}GHz {load_percent:02.01f}%", foreground="f0f000"),
-        getattr(custom_widget,'CPU',widget.CPU)(format="{freq_current:04.2f}GHz {load_percent:04.1f}%", foreground="f0f000"),
-        # widget.ThermalSensor(tag_sensor=None, foreground="fc8f8f", foreground_alert="ff0000"),
-        custom_widget.ThermalHwmon(foreground="fc8f8f", foreground_alert="ff0000"),
-        widget.PulseVolume(volume_app="pavucontrol"),
     ]
-    if systray:
-        widgets.append(widget.Systray())
-    widgets.append(widget.Clock(format='%Y-%m-%d %a %H:%M'))
 
+    if systray:
+        widgets.extend([
+          widget.Systray(),
+          widget.Spacer(length=5),
+        ])
+
+    widgets.extend([
+        widget.CheckUpdates(),
+        # widget.DF(visible_on_warn=False, format="Disk remaining: {f}{m}/{r:.0f}%"),
+        # widget.Net(interface='enp5s0', format="{down} ↓↑ {up}"),
+        getattr(custom_widget,'CustomNet',widget.Net)(interface="enp5s0", format="{down} ↓↑ {up}", background=HIGHLIGHT),
+        widget.Memory(format="{MemUsed}Mb", foreground="ffffff", foreground_alert="fc8f8f", background=HIGHLIGHT),
+        # widget.CPU(format="{freq_current}GHz {load_percent:02.01f}%", foreground="f0f000"),
+        getattr(custom_widget,'CPU',widget.CPU)(format="{freq_current:04.2f}GHz {load_percent:04.1f}%", foreground="ffffff", foreground_warn="f0f000", foreground_alert="fc8f8f", background=HIGHLIGHT),
+        # widget.ThermalSensor(tag_sensor=None, foreground="fc8f8f", foreground_alert="ff0000"),
+        custom_widget.ThermalHwmon(foreground="ffffff", foreground_alert="fc8f8f", background=HIGHLIGHT),
+        widget.PulseVolume(volume_app="pavucontrol", background=HIGHLIGHT),
+        widget.Clock(format='%Y-%m-%d %a %H:%M', background=HIGHLIGHT),
+        # PowerlineTextBox(update_interval=2, side='right', text=bytes('','utf-8')),
+    ])
     return bar.Bar(widgets, 24, )
 
 def get_screen_count():
