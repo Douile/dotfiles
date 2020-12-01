@@ -167,23 +167,26 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
-BAR_COLOR_TIME = 'ff0000'
+BAR_COLOR_TIME = 'd62839'
 BAR_COLOR_MUSIC = 'ea9010'
 BAR_COLOR_CPU = '1882b7'
 BAR_COLOR_NETWORK = '6ab547'
 
 def generic_bar(systray=False):
     widgets = [
-        widget.GroupBox(disable_drag=True, this_current_screen_border=BAR_COLOR_CPU),
-        widget.CurrentLayout(),
+        widget.GroupBox(disable_drag=True, this_current_screen_border=BAR_COLOR_CPU, background=BAR_COLOR_NETWORK),
+        widget.CurrentLayout(background=BAR_COLOR_NETWORK),
+        custom_widget.Powerline(foreground=BAR_COLOR_NETWORK, background=BAR_COLOR_MUSIC, right=True),
         # widget.Prompt(),
-        widget.WindowName(show_state=True),
+        widget.WindowName(show_state=True, width=bar.CALCULATED, background=BAR_COLOR_MUSIC),
+        custom_widget.Powerline(foreground=BAR_COLOR_MUSIC, right=True),
         widget.Chord(
             chords_colors={
                 'launch': ("#ff0000", "#ffffff"),
             },
             name_transform=lambda name: name.upper(),
         ),
+        widget.Spacer(length=bar.STRETCH),
     ]
 
     if systray:
@@ -193,7 +196,7 @@ def generic_bar(systray=False):
         ])
 
     widgets.extend([
-        custom_widget.Powerline(foreground=BAR_COLOR_NETWORK),
+        custom_widget.Powerline(foreground=BAR_COLOR_NETWORK, right=False),
         widget.CheckUpdates(background=BAR_COLOR_NETWORK),
         # widget.DF(visible_on_warn=False, format="Disk remaining: {f}{m}/{r:.0f}%"),
         # widget.Net(interface='enp5s0', format="{down} ↓↑ {up}"),
@@ -231,7 +234,7 @@ screens = [Screen(top=generic_bar(systray=i == 0)) for i in range(0, get_screen_
 # #    Screen(top=generic_bar()),
 # ]
 
-# Drag floating layouts.
+# Drag floating layouts
 mouse = [
     Drag([mod], "Button1", lazy.window.set_position_floating(),
          start=lazy.window.get_position()),
