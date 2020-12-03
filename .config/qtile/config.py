@@ -281,6 +281,7 @@ floating_layout = layout.Floating(float_rules=[
     {'wmclass': 'pinentry-gtk-2'}, # pinentry prompt
     {'wmclass': 'Browser', 'wname': RegexDropin('^About[^-]*$')}, # Browser about dialog
     {'wmclass': 'redshift-gtk'}, # Redshift info
+    {'wmclass': 'Conky'},
 ], border_focus=border_focus, border_normal=border_normal)
 auto_fullscreen = True
 focus_on_window_activation = "smart"
