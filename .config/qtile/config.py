@@ -30,7 +30,7 @@
 from typing import List  # noqa: F401
 
 from libqtile import bar, layout, widget, extension, hook
-from libqtile.config import Click, Drag, Group, Key, Screen
+from libqtile.config import Click, Drag, Group, Key, Screen, Match
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
@@ -128,6 +128,10 @@ keys = [
 ]
 
 groups = [Group(i) for i in "asdfuiop"]
+groups.extend([
+    Group("1", matches=[Match(wm_class=["discord"])], exclusive=True, layout="max", persist=False, init=False, label="Discord"),
+    Group("2", matches=[Match(wm_class=["spotify"])], exclusive=True, layout="max", persist=False, init=False, label="Spotify"),
+  ])
 
 for i in groups:
     keys.extend([
