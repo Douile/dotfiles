@@ -82,7 +82,7 @@ bindsym $mod+F8 exec terminal -e 'cmatrix -bar'
 bindsym $mod+Ctrl+t exec --no-startup-id compton -b
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
 # bindsym Print exec --no-startup-id "maim -s | tee \"/home/tom/Pictures/$(date +%F-%T)-scrot.png\" | xclip -selection clipboard -t image/png && notify-send 'Screen shotted'"
-bindsym Print exec --no-startup-id "sh ~/.scripts/screenshot.sh"
+bindsym Print exec --no-startup-id "sh ~/.local/bin/screenshot"
 bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
 bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
 # bindsym $mod+Shift+h exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
