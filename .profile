@@ -8,5 +8,5 @@ export TERM=alacritty
 # setterm -blength 0
 
 export PATH="$PATH:/usr/local/go/bin"
-export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/.local/bin"
