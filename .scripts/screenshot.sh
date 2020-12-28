@@ -5,7 +5,8 @@ maim -s -u $FILE
 if test 0 -eq $?; then
   cat "$FILE" | xclip -selection clipboard -t image/png && {
     action=$(dunstify -a "maim" --action="show,Show in file explorer" -i "$FILE" "Screeshotted" "File saved as $FILE")
-    if test $action = 2; then
+    echo "$action"
+    if [ "$action" = "show" ]; then
       setsid pcmanfm $(dirname "$FILE")
     fi
   }

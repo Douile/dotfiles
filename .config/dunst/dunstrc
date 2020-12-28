@@ -11,6 +11,9 @@ word_wrap = true
 icon_position = left
 frame_color = #000000
 max_icon_size = 50
+mouse_left_click = do_action
+mouse_middle_click = close_all
+mouse_right_click = close_current
 
 [urgency_normal]
   background = "#1882b7"
