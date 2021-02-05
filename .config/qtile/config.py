@@ -30,7 +30,7 @@
 from typing import List  # noqa: F401
 
 from libqtile import bar, layout, widget, extension, hook
-from libqtile.config import Click, Drag, Group, Key, Screen, Match
+from libqtile.config import Click, Drag, Group, Key, Screen, Match, Rule
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
@@ -46,6 +46,7 @@ mod = "mod4"
 border_focus = "#505050"
 border_normal = "#2c2c2c"
 terminal = guess_terminal()
+GROUP_NAMES = "asdfuiop"
 
 keys = [
     # Switch between windows in current stack pane
@@ -127,10 +128,10 @@ keys = [
     Key(["shift"], "Print", lazy.spawn("peek"), desc="Take a animated screenshot"),
 ]
 
-groups = [Group(i) for i in "asdfuiop"]
+groups = [Group(i) for i in GROUP_NAMES]
 groups.extend([
-    Group("1", matches=[Match(wm_class=["discord"])], exclusive=True, layout="max", persist=False, init=False, label="Discord"),
-    Group("2", matches=[Match(wm_class=["spotify"])], exclusive=True, layout="max", persist=False, init=False, label="Spotify"),
+    Group("1", matches=[Match(wm_class=["discord"])], exclusive=False, layout="max", persist=True, init=True, label="Discord"),
+    Group("2", matches=[Match(wm_class=["spotify"])], exclusive=False, layout="max", persist=True, init=True, label="Spotify"),
   ])
 
 for i in groups:
@@ -165,7 +166,7 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font='roboto-mono',
+    font='roboto mono',
     fontsize=12,
     padding=3,
 )
@@ -178,7 +179,7 @@ BAR_COLOR_NETWORK = '6ab547'
 
 def generic_bar(systray=False):
     widgets = [
-        widget.GroupBox(disable_drag=True, this_current_screen_border=BAR_COLOR_CPU, background=BAR_COLOR_NETWORK),
+        widget.GroupBox(disable_drag=True, hide_unused=True, this_current_screen_border=BAR_COLOR_CPU, background=BAR_COLOR_NETWORK),
         widget.CurrentLayout(background=BAR_COLOR_NETWORK),
         custom_widget.Powerline(foreground=BAR_COLOR_NETWORK, background=BAR_COLOR_MUSIC, right=True),
         # widget.Prompt(),
@@ -259,7 +260,7 @@ dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
 main = None  # WARNING: this is deprecated and will be removed soon
 follow_mouse_focus = True
-bring_front_click = False
+bring_front_click = True
 cursor_warp = False
 floating_layout = layout.Floating(float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
@@ -286,6 +287,7 @@ floating_layout = layout.Floating(float_rules=[
     {'wmclass': 'Browser', 'wname': RegexDropin('^About[^-]*$')}, # Browser about dialog
     {'wmclass': 'redshift-gtk'}, # Redshift info
     {'wmclass': 'Conky'},
+    {'wmclass': 'origin.exe'},
 ], border_focus=border_focus, border_normal=border_normal)
 auto_fullscreen = True
 focus_on_window_activation = "smart"
@@ -299,6 +301,34 @@ focus_on_window_activation = "smart"
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
+
+@hook.subscribe.client_new
+def client_new(window):
+  # TODO: Delete and re-create groups
+  class_name = window.window.get_wm_class()
+  if 'discord' in class_name:
+    window.togroup(group_name="1")
+    return
+  if 'spotify' in class_name:
+    window.togroup(group_name="2")
+    return
+  if 'csgo_linux64' in class_name:
+    subprocess.Popen(['pkill', '-USR1', '-x', 'redshift'])
+
+@hook.subscribe.client_killed
+def client_killed(window):
+  class_name = window.window.get_wm_class()
+  if 'csgo_linux64' in class_name:
+    subprocess.Popen(['pkill', '-USR1', '-x', 'redshift'])
+  
+
+@hook.subscribe.client_name_updated
+def auto_unfloat(window):
+  # Auto-unfloat steam window
+  if 'Steam' in window.window.get_wm_class():
+    name = window.window.get_wm_name()
+    if name == 'Steam':
+      window.floating = False
 
 # Auto start processes
 @hook.subscribe.startup_once
