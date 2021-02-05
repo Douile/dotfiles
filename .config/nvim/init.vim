@@ -35,13 +35,21 @@ filetype plugin indent on
 NeoBundleCheck
 "End NeoBundle Scripts-------------------------
 
-"Custom config
+" Custom config
 set number
 set ts=2 sw=2
 set expandtab
 
+" Don't expand tabs in make files
 autocmd FileType make setlocal noexpandtab
 
+" Auto-reloads
+autocmd BufWritePost ~/.i3/config silent exec "!(i3-msg restart) > /dev/null"
+autocmd BufWritePost ~/.config/i3status/config silent exec "!(i3-msg restart) > /dev/null"
+autocmd BufWritePost ~/.config/i3status/i3status.sh silent exec "!(i3-msg restart) > /dev/null"
+autocmd BufWritePost ~/.config/qtile/config.py silent exec "!(qtile-cmd -o cmd -f restart 2>/dev/null) > /dev/null"
+
+" Switch tab binds
 nnoremap <C-j> :tabprevious<CR>
 nnoremap <C-k> :tabnext<CR>
 
