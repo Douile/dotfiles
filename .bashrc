@@ -21,7 +21,7 @@ alias qtile-log="tail ~/.local/share/qtile/qtile.log"
 # Restart qtile
 alias qtile-restart="qtile-cmd -o cmd -f restart"
 # Use the git bare config
-alias config="git --work-tree=$HOME --git-dir=$HOME/.dotfiles"
+alias config="git --work-tree=\"$HOME\" --git-dir=\"$HOME/.dotfiles\""
 alias add="config add -u"
 alias commit="config commit"
 # Tell ssh we're xterm-color
@@ -30,6 +30,8 @@ alias ssh="TERM=\"xterm-color\" ssh"
 alias ls='exa --group-directories-first -l'
 # Use nvim instead of vim
 alias vim="nvim"
+# Use doas instead of sudo
+alias sudo="doas"
 
 # Load starship prompt
 eval "$(starship init bash)"
