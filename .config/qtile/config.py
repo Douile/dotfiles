@@ -326,7 +326,7 @@ def client_killed(window):
 def auto_unfloat(window):
   # Auto-unfloat steam window
   if 'Steam' in window.window.get_wm_class():
-    name = window.window.get_wm_name()
+    name = window.name
     if name == 'Steam':
       window.floating = False
 
