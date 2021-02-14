@@ -30,8 +30,6 @@ alias ssh="TERM=\"xterm-color\" ssh"
 alias ls='exa --group-directories-first -l'
 # Use nvim instead of vim
 alias vim="nvim"
-# Use doas instead of sudo
-alias sudo="doas"
 
 # Load starship prompt
 eval "$(starship init bash)"
