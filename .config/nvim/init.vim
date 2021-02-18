@@ -1,11 +1,11 @@
 "NeoBundle Scripts-----------------------------
 if has('vim_starting')
   " Required:
-  set runtimepath+=/home/user/.config/nvim/bundle/neobundle.vim/
+  set runtimepath+=~/.config/nvim/bundle/neobundle.vim/
 endif
 
 " Required:
-call neobundle#begin(expand('/home/user/.config/nvim/bundle'))
+call neobundle#begin(expand('~/.config/nvim/bundle'))
 
 " Let NeoBundle manage NeoBundle
 " Required:
@@ -48,6 +48,7 @@ autocmd BufWritePost ~/.i3/config silent exec "!(i3-msg restart) > /dev/null"
 autocmd BufWritePost ~/.config/i3status/config silent exec "!(i3-msg restart) > /dev/null"
 autocmd BufWritePost ~/.config/i3status/i3status.sh silent exec "!(i3-msg restart) > /dev/null"
 autocmd BufWritePost ~/.config/qtile/config.py silent exec "!(qtile-cmd -o cmd -f restart 2>/dev/null) > /dev/null"
+autocmd BufWritePost ~/.profile silent exec "!(source ~/.profile)"
 
 " Switch tab binds
 nnoremap <C-j> :tabprevious<CR>
