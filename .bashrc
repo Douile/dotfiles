@@ -36,3 +36,6 @@ eval "$(starship init bash)"
 
 # Load bash-scripts from https://github.com/Douile/bash-scripts
 source ~/Code/Github/bash-scripts/source.sh
+
+# Get XMR price
+curl -s gbp.rate.sx/xmr
