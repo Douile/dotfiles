@@ -47,7 +47,7 @@ autocmd FileType make setlocal noexpandtab
 autocmd BufWritePost ~/.i3/config silent exec "!(i3-msg restart) > /dev/null"
 autocmd BufWritePost ~/.config/i3status/config silent exec "!(i3-msg restart) > /dev/null"
 autocmd BufWritePost ~/.config/i3status/i3status.sh silent exec "!(i3-msg restart) > /dev/null"
-autocmd BufWritePost ~/.config/qtile/config.py silent exec "!(qtile-cmd -o cmd -f restart 2>/dev/null) > /dev/null"
+autocmd BufWritePost ~/.config/qtile/config.py silent exec "!(qtile cmd-obj -o cmd -f restart 2>/dev/null) > /dev/null"
 autocmd BufWritePost ~/.profile silent exec "!(source ~/.profile)"
 
 " Switch tab binds

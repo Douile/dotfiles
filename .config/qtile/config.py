@@ -108,8 +108,7 @@ keys = [
     Key([mod, "shift"], "r", lazy.run_extension(extension.DmenuRun(dmenu_prompt="> ")), desc="Spawn a dmenu"),
 
     Key([mod], "F1", lazy.spawn([terminal,"-e","htop"]), desc="Open htop"),
-    Key([mod], "F2", lazy.spawn("firefox"), desc="Open firefox"),
-    Key([mod], "F4", lazy.spawn("atom"), desc="Open atom"),
+    Key([mod], "F2", lazy.spawn("librewolf"), desc="Open firefox"),
     Key([mod], "F3", lazy.spawn("pcmanfm"), desc="Open file manager"),
     Key([mod, "control"], "m", lazy.spawn("pavucontrol"), desc="Open volume mixer"),
 
@@ -118,9 +117,9 @@ keys = [
         "poweroff": "poweroff",
         "reboot": "reboot",
         "lock": "dm-tool lock",
-        "logout": "qtile-cmd -o cmd -f shutdown",
-        "reload": "qtile-cmd -o cmd -f restart"
-    })), desc="Open dmenu shutdown prompt"),
+        "logout": "qtile cmd-obj -o cmd -f shutdown",
+        "reload": "qtile cmd-obj -o cmd -f restart"
+    }, dmenu_height=32)), desc="Open dmenu shutdown prompt"),
 
     # Screenshot
     Key([], "Print", lazy.spawn(["sh", "-c", "\"$HOME/.scripts/screenshot.sh\""]),desc="Take a screenshot"),
@@ -249,46 +248,38 @@ mouse = [
     Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
 
-class RegexDropin:
-    def __init__(self, string, flags=0):
-        self._regex = re.compile(string, flags)
-    def __eq__(self, other):
-        if not isinstance(other, str):
-            return False
-        return self._regex.match(other) is not None
-
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
-main = None  # WARNING: this is deprecated and will be removed soon
+# main = None  # WARNING: this is deprecated and will be removed soon
 follow_mouse_focus = True
 bring_front_click = True
 cursor_warp = False
 floating_layout = layout.Floating(float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
-    {'wmclass': 'confirm'},
-    {'wmclass': 'dialog'},
-    {'wmclass': 'download'},
-    {'wmclass': 'error'},
-    {'wmclass': 'file_progress'},
-    {'wmclass': 'notification'},
-    {'wmclass': 'splash'},
-    {'wmclass': 'toolbar'},
-    {'wmclass': 'confirmreset'},  # gitk
-    {'wmclass': 'makebranch'},  # gitk
-    {'wmclass': 'maketag'},  # gitk
-    {'wname': 'branchdialog'},  # gitk
-    {'wname': 'pinentry'},  # GPG key password entry
-    {'wmclass': 'ssh-askpass'},  # ssh-askpass
-    {'wmclass': 'pavucontrol'}, # pavucontrol
+    Match(wm_class='confirm'),
+    Match(wm_class='dialog'),
+    Match(wm_class='download'),
+    Match(wm_class='error'),
+    Match(wm_class='file_progress'),
+    Match(wm_class='notification'),
+    Match(wm_class='splash'),
+    Match(wm_class='toolbar'),
+    Match(wm_class='confirmreset'),  # gitk
+    Match(wm_class='makebranch'),  # gitk
+    Match(wm_class='maketag'),  # gitk
+    Match(title='branchdialog'),  # gitk
+    Match(title='pinentry'),  # GPG key password entry
+    Match(wm_class='ssh-askpass'),  # ssh-askpass
+    Match(wm_class='pavucontrol'), # pavucontrol
     # {'wmclass': 'Steam', 'wname': 'Steam Login'}, # Steam login
-    {'wname': 'Steam - News'}, # Steam news
-    #{'wmclass': 'Steam', 'wname': RegexDropin('^Install -')}, # Steam install dialog
-    {'wmclass': 'Steam', 'wname': 'Settings'}, # Steam settings
-    {'wmclass': 'pinentry-gtk-2'}, # pinentry prompt
+    # {'wname': 'Steam - News'}, # Steam news
+    Match(wm_class='Steam', title=re.compile('^Install -')), # Steam install dialog
+    # {'wmclass': 'Steam', 'wname': 'Settings'}, # Steam settings
+    Match(wm_class='pinentry-gtk-2'), # pinentry prompt
     #{'wmclass': 'Browser', 'wname': RegexDropin('^About[^-]*$')}, # Browser about dialog
-    {'wmclass': 'redshift-gtk'}, # Redshift info
-    {'wmclass': 'Conky'},
-    {'wmclass': 'origin.exe'},
+    Match(wm_class='redshift-gtk'), # Redshift info
+    Match(wm_class='Conky'),
+    Match(wm_class='origin.exe'),
 ], border_focus=border_focus, border_normal=border_normal)
 auto_fullscreen = True
 focus_on_window_activation = "smart"
