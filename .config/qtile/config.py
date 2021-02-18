@@ -337,9 +337,10 @@ def autostart():
   processes = [
     [ 'sh', '.xinitrc' ],
     [ 'nitrogen', '--restore' ],
-    [ 'picom', '-b' ],
+    [ 'picom', '--experimental-backend', '-b' ],
     [ 'nm-applet' ],
     [ 'redshift-gtk' ],
+    [ 'light-locker' ],
   ]
 
   for p in processes:
