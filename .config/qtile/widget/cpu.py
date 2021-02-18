@@ -25,7 +25,7 @@ import psutil
 
 from libqtile.widget import base
 
-class CPU(base.ThreadedPollText):
+class CPU(base.ThreadPoolText):
     orientations = base.ORIENTATION_HORIZONTAL
 
     defaults = [
@@ -38,7 +38,7 @@ class CPU(base.ThreadedPollText):
     ]
 
     def __init__(self, **config):
-        super().__init__(**config)
+        super().__init__('', **config)
         self.add_defaults(CPU.defaults)
 
     def tick(self):

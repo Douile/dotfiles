@@ -30,7 +30,7 @@ from libqtile.log_utils import logger
 from libqtile.widget import base
 
 
-class CustomNet(base.ThreadedPollText):
+class CustomNet(base.ThreadPoolText):
     """
     Displays interface down and up speed
     Widget requirements: psutil_.
@@ -50,7 +50,7 @@ class CustomNet(base.ThreadedPollText):
     ]
 
     def __init__(self, **config):
-        base.ThreadedPollText.__init__(self, **config)
+        base.ThreadPoolText.__init__(self, '', **config)
         self.add_defaults(CustomNet.defaults)
         if not isinstance(self.interface, list):
             if self.interface is None:

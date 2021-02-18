@@ -282,10 +282,10 @@ floating_layout = layout.Floating(float_rules=[
     {'wmclass': 'pavucontrol'}, # pavucontrol
     # {'wmclass': 'Steam', 'wname': 'Steam Login'}, # Steam login
     {'wname': 'Steam - News'}, # Steam news
-    {'wmclass': 'Steam', 'wname': RegexDropin('^Install -')}, # Steam install dialog
+    #{'wmclass': 'Steam', 'wname': RegexDropin('^Install -')}, # Steam install dialog
     {'wmclass': 'Steam', 'wname': 'Settings'}, # Steam settings
     {'wmclass': 'pinentry-gtk-2'}, # pinentry prompt
-    {'wmclass': 'Browser', 'wname': RegexDropin('^About[^-]*$')}, # Browser about dialog
+    #{'wmclass': 'Browser', 'wname': RegexDropin('^About[^-]*$')}, # Browser about dialog
     {'wmclass': 'redshift-gtk'}, # Redshift info
     {'wmclass': 'Conky'},
     {'wmclass': 'origin.exe'},
