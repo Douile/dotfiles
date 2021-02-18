@@ -232,7 +232,8 @@ def get_screen_count():
     window.destroy()
     return count
 
-screens = [Screen(top=generic_bar(systray=i == 0)) for i in range(0, get_screen_count())]
+screen_count = get_screen_count()
+screens = [Screen(top=generic_bar(systray=i == screen_count-1)) for i in range(0, screen_count)]
 
 # screens = [
 #     Screen(top=generic_bar(systray=True)),
