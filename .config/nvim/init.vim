@@ -49,4 +49,7 @@ nnoremap <C-k> :tabnext<CR>
 
 " Plugin config
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme = "solarized"
+
+colorscheme solarized8_dark
