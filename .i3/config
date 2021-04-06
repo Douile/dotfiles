@@ -233,7 +233,7 @@ for_window [title="MuseScore: Play Panel"] floating enable
 for_window [class="Nitrogen"] floating enable sticky enable border normal
 # for_window [class="Oblogout"] fullscreen enable
 # for_window [class="octopi"] floating enable
-for_window [title="About Mozilla Firefox"] floating enable
+for_window [window_role="About" class="Browser"] floating enable
 for_window [class="Pamac-manager"] floating enable
 for_window [class="Pavucontrol"] floating enable
 for_window [class="Blueman-manager"] floating enable
@@ -246,6 +246,7 @@ for_window [class="(?i)System-config-printer.py"] floating enable border normal
 for_window [class="(?i)virtualbox"] floating enable border normal
 # for_window [class="Xfburn"] floating enable
 for_window [title="Emulator"] floating enable
+for_window [class="LethalLeague"] floating enable
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
