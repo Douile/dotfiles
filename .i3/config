@@ -71,7 +71,8 @@ bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send -h string:x-
 # Start Applications
 bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
 bindsym $mod+F1 exec terminal -e 'htop'
-bindsym $mod+F2 exec firefox
+# bindsym $mod+F2 exec firefox
+bindsym $mod+F2 exec librewolf
 bindsym $mod+F3 exec pcmanfm
 bindsym $mod+Shift+F3 exec terminal -e 'ranger'
 # bindsym $mod+F3 exec gksu pcmanfm
@@ -143,7 +144,7 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # toggle sticky
-bindsym $mod+Shift+s sticky toggle
+# bindsym $mod+Shift+s sticky toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -168,10 +169,12 @@ set $ws2 2
 set $ws3 3
 set $ws4 4
 set $ws5 5
-set $ws6 6
+set $ws6 6:code
 set $ws7 7
-set $ws8 8
+set $ws8 8:browser
 set $ws9 9
+set $wsspot spotify
+set $wsdiscord discord
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -183,6 +186,8 @@ bindsym $mod+6 workspace $ws6
 bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
+bindsym $mod+s workspace $wsspot
+bindsym $mod+x workspace $wsdiscord
 
 # Move focused container to workspace
 bindsym $mod+Ctrl+1 move container to workspace $ws1
@@ -194,6 +199,8 @@ bindsym $mod+Ctrl+6 move container to workspace $ws6
 bindsym $mod+Ctrl+7 move container to workspace $ws7
 bindsym $mod+Ctrl+8 move container to workspace $ws8
 bindsym $mod+Ctrl+9 move container to workspace $ws9
+bindsym $mod+Ctrl+s move container to workspace $wsspot
+bindsym $mod+Ctrl+x move container to workspace $wsdiscord
 
 # Move to workspace with focused container
 bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
@@ -205,14 +212,19 @@ bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
 bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
+bindsym $mod+Shift+s move container to workspace $wsspot; workspace $wsspot
+bindsym $mod+Shift+x move container to workspace $wsdiscord; workspace $wsdiscord
 
 # Open applications on specific workspaces
-# assign [class="Thunderbird"] $ws1
 assign [class="(?i)atom"] $ws6
-assign [class="(?i)spotify"] $ws7
+assign [class="(?i)jetbrains-studio"] $ws6
+
 assign [class="(?i)firefox"] $ws8
-# assign [class="Pcmanfm"] $ws3
-# assign [class="Skype"] $ws5
+assign [class="(?i)librewolf"] $ws8
+
+assign [class="(?i)spot"] $wsspot
+assign [class="(?i)spotify"] $wsspot
+assign [class="(?i)discord"] $wsdiscord
 
 # Disable margins for specific windows (WIP)
 # for_window[class="(?i)firefox"] gaps outer 0 gaps inner 0
