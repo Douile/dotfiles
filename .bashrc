@@ -90,14 +90,6 @@ fi
 
 unset use_color safe_term match_lhs sh
 
- # confirm before overwriting something
-alias cp="cp -i"
-alias mv="mv -i"
-alias rm="rm -i"
-
-alias df='df -h'                          # human-readable sizes
-alias free='free -m'                      # show sizes in MB
-alias more=less
 
 xhost +local:root > /dev/null 2>&1
 
@@ -145,25 +137,26 @@ ex ()
 export YAOURT_COLORS="nb=1:pkg=1:ver=1;32:lver=1;45:installed=1;42:grp=1;34:od=1;41;5:votes=1;44:dsc=0:other=1;35"
 export CLIPBOARD=clipit
 
-ufetch-manjaro
+ # confirm before overwriting something
+alias cp="cp -i"
+alias mv="mv -i"
+alias rm="rm -i"
 
-alias ssh="TERM=\"xterm-color\" ssh" # Enable color when using ssh
+alias df="df -h"                          # human-readable sizes
+alias free="free -m"                      # show sizes in MB
+alias more=less
 
-# User functions
-for f in $HOME/.bash.d/*.sh 
-do
-	echo "Sourcing $f..."
-	source "$f"
-done
+
+alias ls="exa --group-directories-first -l"
+
+alias ssh="TERM=\"xterm-color\" ssh"      # Enable color when using ssh
 
 alias config="/usr/bin/git --git-dir=\"$HOME/.dotfiles\" --work-tree=\"$HOME\""
-alias terminalizer="~/Software/terminalizer/node_modules/terminalizer/bin/app.js"
 
-croc-send() {
-  read -sp ">" tmp;
-  croc --ask send --text "$tmp";
-  tmp="";
-}
+alias vim="nvim"
+
 
 source ~/.profile
 source /home/tom/Code/github/bash-scripts/tscripts/source.sh
+
+ufetch-manjaro
