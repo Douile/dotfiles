@@ -1,3 +1,5 @@
+#/usr/share/doc/alacritty/example/alacritty.yml
+
 # Colors (Solarized Dark)
 colors:
   # Default colors
@@ -27,5 +29,25 @@ colors:
     cyan:    '0x93a1a1'
     white:   '0xfdf6e3'
 
+
+# Fonts (requires restart)
+# https://github.com/MichaelAquilina/swayconfig/blob/6656fde7917b151ae507dd1c55a9590c4395185c/alacritty/alacritty.yml
+font:
+  size: 11.0
+
+  offset:
+    x: -1
+    y: 0
+
+  glyph_offset:
+    x: 0
+    y: -1
+
+draw_bold_text_with_bright_colors: true
+
+bell:
+  duration: 0
+
 key_bindings:
   - { key: N,   mods: Control, action: SpawnNewInstance }
+
