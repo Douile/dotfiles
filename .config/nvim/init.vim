@@ -13,16 +13,21 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Add or remove your Bundles here:
 " Default bundles"
+NeoBundle 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'ctrlpvim/ctrlp.vim'
-NeoBundle 'flazz/vim-colorschemes'
 NeoBundle 'Shougo/vimshell'
 
 " Own bundles
 NeoBundle 'cespare/vim-toml'
-NeoBundle 'pucka906/vdrpc'
+"NeoBundle 'pucka906/vdrpc'
+NeoBundle 'rust-lang/rust.vim'
+NeoBundle 'vim-airline/vim-airline'
+NeoBundle 'joshdick/onedark.vim'
+NeoBundle 'tomlion/vim-solidity'
+NeoBundle 'lervag/vimtex'
 
 " Required:
 call neobundle#end()
@@ -39,6 +44,7 @@ NeoBundleCheck
 set number
 set ts=2 sw=2
 set expandtab
+set colorcolumn=80
 
 " Don't expand tabs in make files
 autocmd FileType make setlocal noexpandtab
@@ -49,14 +55,40 @@ autocmd BufWritePost ~/.config/i3status/config silent exec "!(i3-msg restart) > 
 autocmd BufWritePost ~/.config/i3status/i3status.sh silent exec "!(i3-msg restart) > /dev/null"
 autocmd BufWritePost ~/.config/qtile/config.py silent exec "!(qtile cmd-obj -o cmd -f restart 2>/dev/null) > /dev/null"
 autocmd BufWritePost ~/.profile silent exec "!(source ~/.profile)"
+autocmd BufWritePost ~/.bashrc silent exec "!(source ~/.bashrc)"
+
+" Code beautify
+autocmd BufWritePost *.java
+                    \ silent exec "!astyle --indent=spaces=2 -c -xb -j -xf -xh -U -D -xg -p -H -f -C -S --mode=java --style=java -z2 %" |
+                    \ e
+autocmd BufWritePost *.rs
+                    \ silent exec "!cargo fmt" |
+                    \ e
+autocmd BufWritePost *.js
+                    \ silent exec "!js-beautify -s 2 -f %" |
+                    \ e
 
 " Switch tab binds
 nnoremap <C-j> :tabprevious<CR>
 nnoremap <C-k> :tabnext<CR>
 
+colorscheme onedark
 syntax on
+
+" Neosnippet options
+" Enable snipMate compatibility feature.
+let g:neosnippet#enable_snipmate_compatibility = 1
+let g:deoplete#enable_at_startup = 1
+inoremap <expr><tab> pumvisible() ? deoplete#manual_complete() : "\<tab>"
 
 " VDRPC options
 let g:vdrpc_filesize = 1
 let g:vdrpc_autostart = 1
 
+" rust options
+let g:rustfmt_autosave = 1
+
+" Ariline options
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='onedark'
+"let g:airline_powerline_fonts = 1
