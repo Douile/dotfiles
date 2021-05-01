@@ -24,6 +24,12 @@ alias qtile-restart="qtile-cmd -o cmd -f restart"
 alias config="git --work-tree=\"$HOME\" --git-dir=\"$HOME/.dotfiles\""
 alias add="config add -u"
 alias commit="config commit"
+# Git aliases
+alias gs="git status"
+alias gd="git diff --cached"
+alias gdd="git diff"
+alias gap="git add -p"
+alias gp="git push"
 # Tell ssh we're xterm-color
 alias ssh="TERM=\"xterm-color\" ssh"
 # Use exa instead of ls
