@@ -129,8 +129,8 @@ keys = [
 
 groups = [Group(i) for i in GROUP_NAMES]
 groups.extend([
-    Group("1", matches=[Match(wm_class=["discord"])], exclusive=False, layout="max", persist=True, init=True, label="Discord"),
-    Group("2", matches=[Match(wm_class=["spotify"])], exclusive=False, layout="max", persist=True, init=True, label="Spotify"),
+    Group("1", matches=[Match(wm_class="discord")], exclusive=False, layout="max", persist=True, init=True, label="Discord"),
+    Group("2", matches=[Match(wm_class="spotify"),Match(wm_class="spot")], exclusive=False, layout="max", persist=True, init=True, label="Spotify"),
   ])
 
 for i in groups:
@@ -256,6 +256,10 @@ bring_front_click = True
 cursor_warp = False
 floating_layout = layout.Floating(float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
+    Match(role='modal'),
+    Match(role='Dialog'),
+    Match(role='dialog'),
+    Match(wm_type='dialog'),
     Match(wm_class='confirm'),
     Match(wm_class='dialog'),
     Match(wm_class='download'),
@@ -276,10 +280,11 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='Steam', title=re.compile('^Install -')), # Steam install dialog
     # {'wmclass': 'Steam', 'wname': 'Settings'}, # Steam settings
     Match(wm_class='pinentry-gtk-2'), # pinentry prompt
-    #{'wmclass': 'Browser', 'wname': RegexDropin('^About[^-]*$')}, # Browser about dialog
+    Match(wm_class='Browser', title=re.compile('^About [^-]*$')), # Browser about dialog
     Match(wm_class='redshift-gtk'), # Redshift info
     Match(wm_class='Conky'),
     Match(wm_class='origin.exe'),
+    Match(wm_class='LethalLeague'),
 ], border_focus=border_focus, border_normal=border_normal)
 auto_fullscreen = True
 focus_on_window_activation = "smart"
