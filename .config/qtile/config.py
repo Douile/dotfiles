@@ -149,7 +149,7 @@ for i in groups:
     ])
 
 layouts = [
-    layout.Tile(border_focus=border_focus, border_normal=border_normal),
+    layout.Tile(border_focus=border_focus, border_normal=border_normal, border_width=0, ratio=0.55),
     layout.Max(),
     #layout.Stack(num_stacks=2),
     # Try more layouts by unleashing below layouts.
