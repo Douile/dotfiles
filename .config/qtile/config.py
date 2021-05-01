@@ -113,13 +113,13 @@ keys = [
     Key([mod, "control"], "m", lazy.spawn("pavucontrol"), desc="Open volume mixer"),
 
     # Shutdown
-    Key([mod], "0", lazy.run_extension(extension.CommandSet(dmenu_prompt="Power> " , commands={
+    Key([mod], "0", lazy.run_extension(extension.CommandSet(dmenu_prompt="Power" , commands={
         "poweroff": "poweroff",
         "reboot": "reboot",
         "lock": "dm-tool lock",
         "logout": "qtile cmd-obj -o cmd -f shutdown",
         "reload": "qtile cmd-obj -o cmd -f restart"
-    }, dmenu_height=32)), desc="Open dmenu shutdown prompt"),
+    }, dmenu_command='rofi -dmenu')), desc="Open dmenu shutdown prompt"),
 
     # Screenshot
     Key([], "Print", lazy.spawn(["sh", "-c", "\"$HOME/.scripts/screenshot.sh\""]),desc="Take a screenshot"),
