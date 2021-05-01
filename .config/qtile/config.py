@@ -213,10 +213,11 @@ def generic_bar(systray=False):
         custom_widget.ThermalHwmon(foreground="ffffff", foreground_alert="fc8f8f", background=BAR_COLOR_CPU),
         custom_widget.Powerline(foreground=BAR_COLOR_MUSIC, background=BAR_COLOR_CPU),
         widget.PulseVolume(volume_app="pavucontrol", background=BAR_COLOR_MUSIC),
+        # widget.Volume(volume_app="pavucontrol", get_volume_command='pamixer --get-volume', mute_command='pamixer -t', volume_up_command='pamixer -i 5', volume_down_command='pamixer -d 5', background=BAR_COLOR_MUSIC),
         custom_widget.Powerline(foreground=BAR_COLOR_TIME, background=BAR_COLOR_MUSIC),
         widget.Clock(format='%Y-%m-%d %a %H:%M', background=BAR_COLOR_TIME),
     ])
-    return bar.Bar(widgets, 24, )
+    return bar.Bar(widgets, 24, background='#000000.0', opacity=1)
 
 def get_screen_count():
     count = 0
