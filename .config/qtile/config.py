@@ -338,6 +338,7 @@ def autostart():
     [ 'nm-applet' ],
     [ 'redshift-gtk' ],
     [ 'light-locker' ],
+    [ 'ydotoold' ],
   ]
 
   for p in processes:
