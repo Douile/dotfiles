@@ -59,3 +59,4 @@ colors:
 key_bindings:
   - { key: N,   mods: Control, action: SpawnNewInstance }
 
+background_opacity: 0.8
