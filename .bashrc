@@ -44,4 +44,4 @@ eval "$(starship init bash)"
 source ~/Code/Github/bash-scripts/source.sh
 
 # Get XMR price
-curl -s gbp.rate.sx/xmr
+timeout 1 curl -s gbp.rate.sx/xmr
