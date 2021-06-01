@@ -48,6 +48,18 @@ border_normal = "#2c2c2c"
 terminal = guess_terminal()
 GROUP_NAMES = "asdfuiop"
 
+@lazy.function
+def float_to_front(qtile):
+    """
+    Bring all floating windows of the group to front"""
+    global floating_windows
+    floating_windows = []
+    for window in qtile.currentGroup.windows:
+        if windows.floating:
+            window.cmd_bring_to_front()
+            floating_windows.append(window)
+    floating_windows[-1].cmd_focus()
+
 keys = [
     # Switch between windows in current stack pane
     Key([mod], "k", lazy.layout.down(),
@@ -84,6 +96,8 @@ keys = [
     Key([mod, "shift"], "Return", lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack"),
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+
+    Key([mod, "shift"], "Tab", float_to_front, desc="Move floating windows to front"),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
