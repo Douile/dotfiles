@@ -196,7 +196,7 @@ def generic_bar(systray=False):
         widget.CurrentLayout(background=BAR_COLOR_NETWORK),
         custom_widget.Powerline(foreground=BAR_COLOR_NETWORK, background=BAR_COLOR_MUSIC, right=True),
         # widget.Prompt(),
-        widget.WindowName(show_state=True, width=bar.CALCULATED, background=BAR_COLOR_MUSIC),
+        widget.WindowName(show_state=True, width=bar.CALCULATED, background=BAR_COLOR_MUSIC, max_chars=120),
         custom_widget.Powerline(foreground=BAR_COLOR_MUSIC, right=True),
         widget.Chord(
             chords_colors={
@@ -219,6 +219,7 @@ def generic_bar(systray=False):
         # widget.DF(visible_on_warn=False, format="Disk remaining: {f}{m}/{r:.0f}%"),
         # widget.Net(interface='enp5s0', format="{down} ↓↑ {up}"),
         getattr(custom_widget,'CustomNet',widget.Net)(interface="enp5s0", format="{down} ↓↑ {up}", background=BAR_COLOR_NETWORK),
+        widget.DF(warn_space=10, visible_on_warn=False, format='{f}{m}|{r:.0f}%', background=BAR_COLOR_NETWORK),
         custom_widget.Powerline(foreground=BAR_COLOR_CPU, background=BAR_COLOR_NETWORK),
         widget.Memory(format="{MemUsed}Mb", foreground="ffffff", foreground_alert="fc8f8f", background=BAR_COLOR_CPU),
         # widget.CPU(format="{freq_current}GHz {load_percent:02.01f}%", foreground="f0f000"),
