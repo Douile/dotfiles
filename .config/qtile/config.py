@@ -343,6 +343,14 @@ def auto_unfloat(window):
     if name == 'Steam':
       window.floating = False
 
+# Temporary android studio fix
+@hook.subscribe.client_name_updated
+def fixAndroidStudio(w):
+    if w.name == "Welcome to Android Studio":
+        for i in range(5):
+            time.sleep(5)
+            w.unhide()
+
 # Auto start processes
 @hook.subscribe.startup_once
 def autostart():
