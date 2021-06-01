@@ -26,16 +26,22 @@ alias add="config add -u"
 alias commit="config commit"
 # Git aliases
 alias gs="git status"
-alias gd="git diff --cached"
-alias gdd="git diff"
+alias gd="git diff"
+alias gdc="git diff --cached"
 alias gap="git add -p"
 alias gp="git push"
+alias gb="git branch -lavv"
 # Tell ssh we're xterm-color
-alias ssh="TERM=\"xterm-color\" ssh"
+alias ssh="TERM=\"xterm-256color\" ssh"
 # Use exa instead of ls
 alias ls='exa --group-directories-first -l'
+alias sl="ls"
 # Use nvim instead of vim
 alias vim="nvim"
+
+# Navigate fs
+alias ..="cd .."
+alias ...="cd ../.."
 
 # Load starship prompt
 eval "$(starship init bash)"
@@ -44,4 +50,5 @@ eval "$(starship init bash)"
 source ~/Code/Github/bash-scripts/source.sh
 
 # Get XMR price
-timeout 1 curl -s gbp.rate.sx/xmr
+# timeout 1 curl -s gbp.rate.sx/xmr
+neofetch
