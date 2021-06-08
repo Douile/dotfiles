@@ -1,29 +1,29 @@
 . {
   bind lo
-	loop
-	forward . 127.0.0.1:5301 127.0.0.1:5302 127.0.0.1:5303
-	cache 30
-	log
-	errors
+  loop
+  forward . 127.0.0.1:5301 127.0.0.1:5302 127.0.0.1:5303
+  cache 30
+  log
+  errors
 }
 .:5301 {
   bind lo
-	forward . tls://9.9.9.9 tls://149.112.112.112 {
-		tls_servername dns.quad9.net
-		health_check 30s
-	}	
+  forward . tls://9.9.9.9 tls://149.112.112.112 {
+    tls_servername dns.quad9.net
+    health_check 30s
+  } 
 }
 .:5302 {
   bind lo
-	forward . tls://1.1.1.1 tls://1.0.0.1 {
-		tls_servername cloudflare-dns.com
-		health_check 30s
-	}	
+  forward . tls://1.1.1.1 tls://1.0.0.1 {
+    tls_servername cloudflare-dns.com
+    health_check 30s
+  } 
 }
 .:5303 {
   bind lo
-	forward . tls://208.67.222.222 tls://208.67.220.220 {
-		tls_servername dns.opendns.com
-		health_check 30s
-	}
+  forward . tls://208.67.222.222 tls://208.67.220.220 {
+    tls_servername dns.opendns.com
+    health_check 30s
+  }
 }
