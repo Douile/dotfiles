@@ -16,6 +16,8 @@ alias rm='rm -i'
 # PS1='[\u@\h \W]\$ '
 # PS1="\[\033[38;5;14m\]\u\[$(tput sgr0)\]@\[$(tput sgr0)\]\[\033[38;5;9m\]\h\[$(tput sgr0)\]:\[$(tput sgr0)\]\[\033[38;5;46m\]\W\[$(tput sgr0)\]\\$ \[$(tput sgr0)\]"export PS1="\[\033[38;5;14m\]\u\[$(tput sgr0)\]@\[$(tput sgr0)\]\[\033[38;5;9m\]\h\[$(tput sgr0)\]:\[$(tput sgr0)\]\[\033[38;5;46m\]\W\[$(tput sgr0)\]\\$ \[$(tput sgr0)\]"
 
+HISTCONTROL=ignoreboth
+
 # View the qtile log with vim
 alias qtile-log="tail ~/.local/share/qtile/qtile.log"
 # Restart qtile
