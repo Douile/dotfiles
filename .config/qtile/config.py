@@ -322,12 +322,6 @@ def client_new(window):
   if 'csgo_linux64' in class_name:
     subprocess.Popen(['pkill', '-USR1', '-x', 'redshift'])
 
-@hook.subscribe.client_killed
-def client_killed(window):
-  class_name = window.window.get_wm_class()
-  if 'csgo_linux64' in class_name:
-    subprocess.Popen(['pkill', '-USR1', '-x', 'redshift'])
-  
 
 @hook.subscribe.client_name_updated
 def auto_unfloat(window):
