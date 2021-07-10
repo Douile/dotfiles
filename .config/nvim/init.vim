@@ -21,14 +21,34 @@ NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'Shougo/vimshell'
 
 " Own bundles
-NeoBundle 'cespare/vim-toml'
-"NeoBundle 'pucka906/vdrpc'
-NeoBundle 'rust-lang/rust.vim'
+" Requirements
+NeoBundle 'skywind3000/asyncrun.vim'
+
+NeoBundle 'pucka906/vdrpc'
+
+" Theming
 NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'joshdick/onedark.vim'
-NeoBundle 'tomlion/vim-solidity'
+
+
+" Code completion
+NeoBundle 'neoclide/coc.nvim', { 'branch': 'release', 'do': ':CocUpdate' }
+
+
+" Languages
+"   Latex
 NeoBundle 'lervag/vimtex'
-NeoBundle 'skywind3000/asyncrun.vim'
+"   Rust
+NeoBundle 'rust-lang/rust.vim'
+"   Ecmascript
+NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'leafgarland/typescript-vim'
+"   Solidity
+NeoBundle 'tomlion/vim-solidity'
+"   Toml
+NeoBundle 'cespare/vim-toml'
+"   Json
+NeoBundle 'elzr/vim-json'
 
 " Required:
 call neobundle#end()
@@ -55,8 +75,6 @@ autocmd BufWritePost ~/.i3/config silent exec "!(i3-msg restart) > /dev/null"
 autocmd BufWritePost ~/.config/i3status/config silent exec "!(i3-msg restart) > /dev/null"
 autocmd BufWritePost ~/.config/i3status/i3status.sh silent exec "!(i3-msg restart) > /dev/null"
 autocmd BufWritePost ~/.config/qtile/config.py silent exec "!(qtile cmd-obj -o cmd -f restart 2>/dev/null) > /dev/null"
-" autocmd BufWritePost ~/.profile silent exec "!(source ~/.profile)"
-" autocmd BufWritePost ~/.bashrc silent exec "!(source ~/.bashrc)"
 
 " Code beautify
 autocmd BufWritePost *.java
